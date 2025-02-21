@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-            System.out.println("Hello World!");
+            DiceShaker shaker = new RandomSingleDiceShaker();
+            System.out.format("Shake %d%n", shaker.shake());
         }
 }
