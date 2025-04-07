@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerPath {
-    private ArrayList<BoardPositions> path;
-    private int startPos;
+    private List<BoardPositions> path;
 
-    public PlayerPath(ArrayList<BoardPositions> path, int startIndex) {
+    public PlayerPath(List<BoardPositions> path) {
         this.path = path;
-        this.startPos = startIndex;
+
     }
 
     public BoardPositions getStartPosition() {
-        return path.get(startPos);
+        return path.get(0);
     }
 
     public BoardPositions getNextPosition(BoardPositions current, int moves) {
