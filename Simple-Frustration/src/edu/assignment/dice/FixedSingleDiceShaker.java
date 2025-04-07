@@ -1,3 +1,5 @@
+package edu.assignment.dice;
+
 public class FixedSingleDiceShaker implements DiceShaker{
 
     private final int[] shakes = new int[]{
