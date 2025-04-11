@@ -7,13 +7,12 @@ import edu.assignment.player.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         //Create Board
         Board board = new Board();
-
-        DiceShaker shaker = new LoggingDiceShakerDecorator(new RandomSingleDiceShaker(new SixSidedDice()));
 
         //Create Player Objects
         Player player1 = new Player("Player1");
@@ -25,6 +24,23 @@ public class Main {
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter number of dice to use (1 or 2): ");
+        int diceCount = scanner.nextInt();
+
+        DiceShaker shaker = switch (diceCount) {
+            case 1 -> new RandomSingleDiceShaker(new SixSidedDice());
+            case 2 -> new DoubleDiceDecorator(new RandomSingleDiceShaker(new SixSidedDice()), new SixSidedDice());
+            default -> {
+                System.out.println("Invalid choice. Defaulting to 1 die.");
+                yield new RandomSingleDiceShaker(new SixSidedDice());
+            }
+        };
+
+// Wrap the final shaker ONCE with logging
+        shaker = new LoggingDiceShakerDecorator(shaker);
+
 
         boolean gameOver = false;
         while(!gameOver) {
@@ -43,10 +59,7 @@ public class Main {
 
                 System.out.println("Current Position: " + player.getCurrentPosition());
 
-                int roll = shaker.shake();
-
-
-                player.setNewPosition(roll);
+                player.setNewPosition(shaker.shake());
                 System.out.println("New Position: " + player.getCurrentPosition());
 
 
@@ -67,9 +80,6 @@ public class Main {
         int i = player1.getTurn() + player2.getTurn();
         System.out.println("\u001B[0mTotal Turns: " + i );
 
-    }
-    public static void show(DiceShaker shaker) {
-        shaker.shake();
     }
 
 }
