@@ -1,18 +1,21 @@
 package edu.assignment.app;
 
 import edu.assignment.board.Board;
-import edu.assignment.board.BoardPositions;
 import edu.assignment.dice.*;
 import edu.assignment.player.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Board Size 18 - Type 1 ");
+        System.out.println("Board Size 36 - Type 2 ");
+        int size = scanner.nextInt();
+
         //Create Board
-        Board board = new Board();
+        Board board = new Board(size);
 
         //Create Player Objects
         Player player1 = new Player("Player1");
@@ -25,7 +28,7 @@ public class Main {
         players.add(player1);
         players.add(player2);
 
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter number of dice to use (1 or 2): ");
         int diceCount = scanner.nextInt();
 

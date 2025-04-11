@@ -1,47 +1,47 @@
-# Simple Frustration Game Simulation 
+# 🎲 Simple Frustration Game Simulator
 
-## Overview
+A Java console simulation of the board game **Simple Frustration**, following the game rules and extended with support for multiple game variations.
 
-This simulation must follow the **Simple Frustration** board game rules (as defined in the Appendix). The goal is to accurately model a game session in code, with a focus on console-based output for game progression and summary reporting.
+## 📋 Functional Specification
 
----
+The simulator runs a game between two players on a board, using dice rolls to advance positions. Throughout the game, the simulation outputs the following to the console:
 
-## Functional Requirements
-
-The game must output the following information to the **console** during and after the simulation:
-
-### 🔁 During Each Turn
-
-1. **Current Player Info**
-    - Print the name of the current player taking their turn.
-
-2. **Dice Roll Value**
-    - Display the value of the dice roll for that turn.
-
-3. **Player Positioning**
-    - Show the player's position *before* and *after* the dice roll.
-
-4. **Turn Counter**
-    - Print the running total of the number of turns taken by the current player.
+1. The current player, their dice roll, and position before and after each turn.
+2. Running total of turns taken per player.
+3. The winner at the end of the game.
+4. Total number of turns taken across both players.
 
 ---
 
-### 🏁 At the End of the Game
+## 🕹️ Game Variations
 
-1. **Winning Player**
-    - Print the name of the player who has won the game.
+The simulation supports multiple game rule variations. These can be **individually toggled** and **combined** to change the gameplay.
 
-2. **Total Turns Summary**
-    - Output the **total number of turns taken by all players combined**.
+### ❌ Exact Landing Required (End Rule)
+- A player **must land exactly** on the END position to win.
+- If the roll overshoots the END, the player bounces **backwards**, including down the tail and potentially wrapping around the board.
+
+### ✅ Hit Sends Player Home (Hit Rule)
+- If a player lands on the same square as their opponent, the opponent is sent back to their **Home** position.
+- Each player starts at a unique Home index (e.g. Red at 1, Blue at 9 or 19 depending on board size).
+
+### ✅ Dice Mode
+- Choose between:
+   - 🎲 Single die (6-sided)
+   - 🎲🎲 Double dice (two 6-sided dice)
+
+### 🟨 Board Size
+- Choose between:
+   - 🟩 **Standard board**: 18 main positions + 3 tail positions
+   - 🟦 **Large board**: 36 main positions + 6 tail positions
+- Tail positions are unique per player and used once they complete a full circuit.
+
+This variation is functional in the aspect of can vary in size. However, the tail positions are not named correctly, as i could not figure out how to do this in the way i've implemented the functionality of the game.
 
 ---
 
-## Definition: Basic Game
+## 🚀 How to Run
 
-A simulation that meets the above criteria and follows the core game rules is considered a **basic game**.
-
----
-
-## Appendix
-
-> See the Appendix section of the game specification document for the detailed rules of the Simple Frustration board game.
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/simple-frustration-simulator.git

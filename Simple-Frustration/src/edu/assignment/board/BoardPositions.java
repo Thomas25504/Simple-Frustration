@@ -2,6 +2,8 @@ package edu.assignment.board;
 
 public class BoardPositions {
     private final int index;
+    private int size;
+
 
     public BoardPositions(int index) {
         this.index = index;
@@ -9,6 +11,10 @@ public class BoardPositions {
 
     public int getIndex() {
         return index;
+    }
+
+    public void boardSize(int size){
+        this.size = size;
     }
 
     @Override
