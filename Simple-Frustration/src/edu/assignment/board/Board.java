@@ -1,16 +1,17 @@
 package edu.assignment.board;
 
 import edu.assignment.player.Player;
-import edu.assignment.player.PlayerPath;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     private List<BoardPositions> board;
+    public List<BoardPositions> player1path;
+    public List<BoardPositions> player2path;
 
-    private PlayerPath playerOnePath;
-    private PlayerPath playerTwoPath;
+
 
     public Board() {
         board = new ArrayList<>();
@@ -18,25 +19,23 @@ public class Board {
             board.add(new BoardPositions(i));
         }
 
-        List<BoardPositions> player1path = new ArrayList<>(board);
+       player1path = new ArrayList<>(board);
+
         player1path.add(new BoardPositions(19));
         player1path.add(new BoardPositions(20));
         player1path.add(new BoardPositions(21));
 
-        List<BoardPositions> player2path = new ArrayList<>();
+        player2path = new ArrayList<>();
+
         player2path.addAll(board.subList(8,18));
         player2path.addAll(board.subList(0,8));
-        player2path.add(new BoardPositions(22));
-        player2path.add(new BoardPositions(23));
-        player2path.add(new BoardPositions(24));
+        player2path.add(new BoardPositions(19));
+        player2path.add(new BoardPositions(20));
+        player2path.add(new BoardPositions(21));
 
-        this.playerOnePath = new PlayerPath(player1path);
-        this.playerTwoPath = new PlayerPath(player2path);
+
     }
 
-    public PlayerPath getPlayerPath(int playerNumber) {
-        return playerNumber == 1 ? playerOnePath : playerTwoPath;
-    }
 
     public void getBoard(){
         for (BoardPositions boardPositions : board) {

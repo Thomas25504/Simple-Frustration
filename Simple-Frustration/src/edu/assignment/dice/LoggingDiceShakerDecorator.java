@@ -10,7 +10,7 @@ public class LoggingDiceShakerDecorator implements DiceShaker {
     @Override
     public int shake(){
         int result = shaker.shake();
-        System.out.format("%d%n", result);
+        System.out.format("Rolls: %d%n", result);
         return result;
     }
 }
