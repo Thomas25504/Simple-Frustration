@@ -38,43 +38,88 @@ public class Main {
             }
         };
 
-// Wrap the final shaker ONCE with logging
         shaker = new LoggingDiceShakerDecorator(shaker);
 
+        System.out.println("Basic Game - Type 1 ");
+        System.out.println("Home when Hit - Type 2 ");
+        int mode = scanner.nextInt();
 
         boolean gameOver = false;
         while(!gameOver) {
-            for(Player player : players) {
+            switch (mode) {
+                case 1:
+                    for(Player player : players) {
 
-                if(player == player1) {
-                    System.out.println("\u001B[31m");
-                }else if(player == player2) {
-                    System.out.println("\u001B[34m");
-                }
-
-
-
-                System.out.println(player.getName());
-                System.out.println("Turn: " + player.getTurn());
-
-                System.out.println("Current Position: " + player.getCurrentPosition());
-
-                player.setNewPosition(shaker.shake());
-                System.out.println("New Position: " + player.getCurrentPosition());
-
-
-                boolean end = player.isAtEnd();
-                if(end) {
-                    System.out.println("\n" + player.getName() + " won! In " + player.getTurn() + " turns");
-                    gameOver = true;
-                    break;
-                }
-
-                player.incrementTurn();
+                        if(player == player1) {
+                            System.out.println("\u001B[31m");
+                        }else if(player == player2) {
+                            System.out.println("\u001B[34m");
+                        }
 
 
 
+                        System.out.println(player.getName());
+                        System.out.println("Turn: " + player.getTurn());
+
+                        System.out.println("Current Position: " + player.getCurrentPosition());
+
+                        player.setNewPosition(shaker.shake());
+
+                        System.out.println("New Position: " + player.getCurrentPosition());
+
+
+                        boolean end = player.isAtEnd();
+                        if(end) {
+                            System.out.println("\n" + player.getName() + " won! In " + player.getTurn() + " turns");
+                            gameOver = true;
+                            break;
+                        }
+
+                        player.incrementTurn();
+
+
+
+                    }
+                    case 2:
+                        for (int i = 0; i < players.size(); i++) {
+                            Player player = players.get(i);
+                            Player nextPlayer = players.get((i + 1) % players.size()); // circular reference
+
+                            // Color output
+                            if (player == player1) {
+                                System.out.println("\u001B[31m"); // Red
+                            } else if (player == player2) {
+                                System.out.println("\u001B[34m"); // Blue
+                            }
+
+                            System.out.println(player.getName());
+                            System.out.println("Turn: " + player.getTurn());
+                            System.out.println("Current Position: " + player.getCurrentPosition());
+
+                            int roll = shaker.shake();
+                            player.setNewPosition(roll);
+
+                            if(player.getCurrentPosition() == nextPlayer.getCurrentPosition()) {
+                                player.currentPosition = 0;
+                                System.out.println("\u001B[32mLanded on the other player, Going home\u001B[0m ");
+                            }
+
+                            System.out.println("New Position: " + player.getCurrentPosition());
+
+
+                            if (player.isAtEnd()) {
+                                System.out.println("\n" + player.getName() + " won! In " + player.getTurn() + " turns");
+                                gameOver = true;
+                                break;
+                            }
+
+                            player.incrementTurn();
+                        }
             }
+
+
+
+
         }
 
         int i = player1.getTurn() + player2.getTurn();
